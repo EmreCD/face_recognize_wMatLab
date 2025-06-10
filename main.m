@@ -8,14 +8,13 @@ personList = {};
 dataPath = 'data';
 people = dir(dataPath);
 
-fprintf('Veriler yükleniyor...\n');
 for i = 3:length(people)
     personName = people(i).name;
     personDir = fullfile(dataPath, personName);
     images = dir(fullfile(personDir, '*.jpg')); % sadece .jpg
 
     personList{end+1} = personName;
-    label = length(personList);  % Etiket: 1, 2, 3, ...
+    label = length(personList);  
 
     for j = 1:length(images)
         imgPath = fullfile(personDir, images(j).name);
@@ -42,7 +41,7 @@ for i = 3:length(people)
 end
 
 %PCA boyut indirgeme
-fprintf('PCA uygulanıyor...\n');
+fprintf('PCA\n');
 [coeff, score, ~] = pca(faces);
 numComponents = min(50, size(score, 2));
 X_train = score(:, 1:numComponents);
@@ -57,7 +56,7 @@ while true
     % Test resmi seç
     [testFile, testPath] = uigetfile('*.jpg', 'Test resmi seçin');
     if isequal(testFile, 0)
-        disp('Dosya seçilmedi. Çıkılıyor...');
+        disp('Dosya seçilmedi. Çıkılıyor');
         break;
     end
 
